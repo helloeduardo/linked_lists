@@ -67,11 +67,18 @@ class LinkedList
   end
 
   def to_s
-
+    pointer = head
+    string = ""
+    size.times do
+      string += "( #{pointer.value} ) -> "
+      pointer = pointer.next_node
+    end
+    string += "nil"
   end
 end
 
 list = LinkedList.new
+list.append(67)
 puts list.prepend(12)
 puts list.append(33)
 puts list.inspect
@@ -86,3 +93,4 @@ puts list.contains?(33)
 puts list.contains?(45)
 puts list.find(12)
 puts list.find(45)
+puts list.to_s
