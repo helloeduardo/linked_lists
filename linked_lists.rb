@@ -75,6 +75,15 @@ class LinkedList
     end
     string += "nil"
   end
+
+  def insert_at(value, index)
+    return prepend(value) if index == 0
+    return append(value) if index >= size
+    previous_node = at(index - 1)
+    previous_node.next_node = Node.new(value, at(index))
+    @size += 1
+  end
+  
 end
 
 list = LinkedList.new
@@ -94,3 +103,8 @@ puts list.contains?(45)
 puts list.find(12)
 puts list.find(45)
 puts list.to_s
+list.insert_at(99, 1)
+puts list.to_s
+list.insert_at(81, 0)
+puts list.to_s
+puts list.size
