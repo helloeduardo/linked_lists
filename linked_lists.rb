@@ -13,7 +13,7 @@ class LinkedList
     @size += 1
   end
 
-  def traverse
+  def tail
     pointer = head
     until pointer.next_node == nil
       pointer = pointer.next_node
@@ -22,8 +22,7 @@ class LinkedList
   end
 
   def append(value)
-    last = traverse
-    last.next_node = Node.new(value)
+    tail.next_node = Node.new(value)
     @size += 1
   end
 
@@ -34,6 +33,34 @@ class LinkedList
     end
     pointer
   end
+
+  def pop
+    new_tail = at(size - 2)
+    popped = tail
+    new_tail.next_node = nil
+    @size -= 1
+    popped
+  end
+
+  def contains?(value)
+    pointer = head
+    until pointer == nil
+      return true if pointer.value == value
+      pointer = pointer.next_node
+    end
+    false
+  end
+
+  def find(value)
+    pointer = head
+    index = 0
+    until pointer == nil
+      return index if pointer.value == value
+      pointer = pointer.next_node
+      index += 1
+    end
+    nil
+  end
 end
 
 list = LinkedList.new
@@ -42,4 +69,12 @@ puts list.append(33)
 puts list.inspect
 puts list.size
 puts list.head
-puts list.at(2)
+puts list.at(list.size-1)
+puts list.pop
+list.append(45)
+puts list.inspect
+puts list.contains?(12)
+puts list.contains?(33)
+puts list.contains?(45)
+puts list.find(12)
+puts list.find(45)
