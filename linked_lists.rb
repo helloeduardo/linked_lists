@@ -14,6 +14,7 @@ class LinkedList
   end
 
   def tail
+    return head if head.nil?
     pointer = head
     until pointer.next_node == nil
       pointer = pointer.next_node
@@ -77,34 +78,29 @@ class LinkedList
   end
 
   def insert_at(value, index)
+    return p "Invalid index" if index > size || index < 0
     return prepend(value) if index == 0
-    return append(value) if index >= size
+    return append(value) if index == size
     previous_node = at(index - 1)
     previous_node.next_node = Node.new(value, at(index))
     @size += 1
   end
-  
+
+  def remove_at(index)
+    return p "Invalid index" if index >= size || index < 0
+    current_node = at(index)
+    if index == 0
+      @head = current_node.next_node
+      @size -= 1
+    else
+      previous_node = at(index - 1)
+      previous_node.next_node = current_node.next_node
+      @size -= 1
+    end
+  end
 end
 
 list = LinkedList.new
-list.append(67)
-puts list.prepend(12)
-puts list.append(33)
-puts list.inspect
-puts list.size
-puts list.head
-puts list.at(list.size-1)
-puts list.pop
-list.append(45)
-puts list.inspect
-puts list.contains?(12)
-puts list.contains?(33)
-puts list.contains?(45)
-puts list.find(12)
-puts list.find(45)
-puts list.to_s
-list.insert_at(99, 1)
-puts list.to_s
-list.insert_at(81, 0)
-puts list.to_s
-puts list.size
+#insert method calls below to modify list
+
+puts list
